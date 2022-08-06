@@ -8,4 +8,11 @@ pagina <- read_html('https://www.mercadolibre.cl/ofertas?promotion_type=deal_of_
 
 
 pagina %>% 
-  html_element(xpath = '//ul[@class = "andes-pagination"]')
+  html_element(xpath = '//ul[@class = "andes-pagination"]') %>% 
+  html_children() %>% 
+  html_text2() %>% 
+  as.numeric() %>% 
+  max(na.rm = TRUE) %>% 
+  suppressWarnings()
+
+    
