@@ -32,9 +32,17 @@ remote_driver$findElement(using = 'xpath',
                           value = '//select[@id = "marcas"]/option[@value = "78"]')$clickElement()
 
 
+MARCAS <- remote_driver$findElement(using = 'xpath',
+                          value = '//select[@id = "marcas"]')$selectTag()
 
+ID_MARCA <- tibble(Marca = MARCAS$text,
+                   ID_MARCA = MARCAS$value) %>% 
+  filter(Marca == MARCA) %>% 
+  slice(1) %>% 
+  pull(ID_MARCA)
 
-
+remote_driver$findElement(using = 'xpath',
+                          value = paste('//select[@id = "marcas"]/option[@value = ',ID_MARCA,']'))$clickElement()
 
 
 
