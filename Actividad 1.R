@@ -56,7 +56,21 @@ precio_nuevo <- pagina %>%
   as.numeric()
 
 
+# Envio gratis
+# Intento 1 fallido
 
+pagina %>%
+  html_elements(xpath = ('//span[@class = "promotion-item__shipping"]')) %>%
+  html_text2()
+
+# Intento 2
+Envio <- 1:length(Nombre) %>% 
+  map_chr(.f = function(x){
+    pagina %>% 
+      html_element(xpath = paste0('//ol[@class = "items_container"]/li[',x,']//span[@class = "promotion-item__shipping"]')) %>% 
+      html_text2() %>% 
+      if_else(is.na(.),'Sin envio gratis',.)
+  })
 
 
 
