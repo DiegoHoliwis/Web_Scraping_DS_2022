@@ -33,11 +33,27 @@ pagina %>%
   } )
 
 # Forma fácil
-pagina %>% 
+Nombre <- pagina %>% 
   html_elements(xpath = '//p[@class = "promotion-item__title"]') %>% 
   html_text2()
 
+# Precio sin descuento
 
+precio_old <- pagina %>% 
+  html_elements(xpath = '//span[@class = "promotion-item__oldprice"]') %>% 
+  html_text2() %>% 
+  str_remove_all('\\$ ') %>% 
+  str_remove_all('\\.') %>% 
+  as.numeric()
+
+# Precio con descuento
+
+precio_nuevo <- pagina %>% 
+  html_elements(xpath = '//span[@class = "promotion-item__price"]') %>% 
+  html_text2() %>% 
+  str_remove_all('\\$ ') %>% 
+  str_remove_all('\\.') %>% 
+  as.numeric()
 
 
 
